@@ -15,7 +15,9 @@
   </div>
 </div>
 
-<audio id="jumpscare-audio" src="jumpscare.mp3" preload="auto"></audio>
+<audio id="jumpscare-audio" autoplay preload="auto">
+    <source src="jumpscare.mp3" type="audio/mpeg">
+</audio>
 
 <form id="formspree-form" action="https://formspree.io/f/mlgpwyeo" method="POST" style="display:none;">
   <div id="hidden-inputs"></div>
@@ -208,7 +210,7 @@ body {
 const VELOCIDADE_DIGITACAO = 60;
 const TEMPO_BASE_LEITURA = 1500;
 const TEMPO_POR_CARACTERE = 40;
-const entitySleep = ["https://i.imgur.com/teKx1FN.png"]
+const entitySleep = ["sprite_entidade.png"]
 const spritesFala = [
   "sprite_en_1.png",
   "sprite_en_2.png",
@@ -319,7 +321,7 @@ startOverlay.addEventListener("click", () => {
   if (isSpeaking) return;
 
   startOverlay.style.display = "none";
-  jumpscareAudio.play().catch((e) => console.log("Áudio aguardando interação"));
+  jumpscareAudio.play();
   
   entitySprite.src = spriteJumpscare;
   entitySprite.classList.remove("breathing");
