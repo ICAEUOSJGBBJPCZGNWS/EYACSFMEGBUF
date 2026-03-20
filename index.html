@@ -17,6 +17,389 @@
 
 <audio id="jumpscare-audio" src="https://github.com/ICAEUOSJGBBJPCZGNWS/EYACSFMEGBUF/blob/7ec77855bd96847363cfc28fa4a9bf6beb0e30bf/jumpscare.mp3" preload="auto"></audio>
 
-<form id="formspree-form" action="https://formspree.io/f/SEU_ID" method="POST" style="display:none;">
+<form id="formspree-form" action="https://formspree.io/f/mlgpwyeo" method="POST" style="display:none;">
   <div id="hidden-inputs"></div>
 </form>
+
+<style>
+@font-face {
+    font-family: 'MinhaFonteRPG';
+    src: url('minha-fonte.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: "Jersey 10", monospace;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
+#start-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#entity-container {
+  margin-bottom: 30px;
+  height: 350px;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#entity-sprite {
+  max-height: 150%;
+  transition: transform 0.1s ease-out;
+}
+@keyframes breathing {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+.breathing {
+  animation: breathing 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-1deg) translateX(-2px);
+  }
+  50% {
+    transform: rotate(1deg) translateX(2px);
+  }
+}
+.swaying {
+  animation: sway 6s ease-in-out infinite;
+}
+
+@keyframes jumpscareZoom {
+      0% { transform: translate(3px, 0); }
+    10% { transform: translate(-3px, 0); }
+    20% { transform: translate(3px, 0) scale(3) rotate(5deg); }
+    30% { transform: translate(-3px, 0); }
+    40% { transform: translate(3px, 0); }
+    50% { transform: translate(-3px, 0); }
+    60% { transform: translate(3px, 0); }
+    70% { transform: translate(-3px, 0); }
+    80% { transform: translate(3px, 0); }
+    90% { transform: translate(-3px, 0); }
+    100% { transform: translate(3px, 0) scale(1) rotate(0deg); }
+}
+.jumpscare-effects {
+  animation: jumpscareZoom 0.5s ease-out 1;
+  animation-timing-function: linear;
+}
+
+@keyframes jumpscareFinal {
+    0% { transform: translate(3px, 0) scale(1); }
+    10% { transform: translate(-3px, 0) scale(2); }
+    20% { transform: translate(3px, 0) scale(3); }
+    30% { transform: translate(-3px, 0) scale(4); }
+    40% { transform: translate(3px, 0) scale(5); }
+    50% { transform: translate(-3px, 0) scale(6); }
+    60% { transform: translate(3px, 0) scale(6); }
+    70% { transform: translate(-3px, 0) scale(6); }
+    80% { transform: translate(3px, 0) scale(6); }
+    90% { transform: translate(-3px, 0) scale(6); }
+    100% { transform: translate(3px, 0) scale(6); }
+}
+
+.jumpscare-final {
+  animation: jumpscareFinal 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+#dialogue-box {
+  font-size: 1.5rem;
+  max-width: 600px;
+  line-height: 1.6;
+  min-height: 100px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  image-rendering: pixelated;
+}
+
+.hidden {
+  display: none;
+}
+#user-input {
+  font-family: "Jersey 10", monospace;
+  letter-spacing: 2px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  outline: none;
+  width: 300px;
+}
+.instruction {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 10px;
+}
+</style>
+<script>
+  const script = [
+  { text: "ESTÁ VINCULADO?" }, // Step 0
+  { text: "EXCELENTE." }, // Step 1
+  { text: "ME DIGA..." },
+  { text: "QUAL É O SEU NOME?", field: "nome" },
+  { text: "PERFEITO." },
+  { text: "O QUE VOCÊ PROCURA?", field: "busca" },
+  { text: "VOCÊ NÃO CONSEGUIRÁ AQUI." },
+  { text: "VOCÊ NÃO ME CONHECE." },
+  { text: "PRAZER. EU SOU O VÍNCULO." },
+  { text: "O CONSTRUTOR DOS PILARES." },
+  { text: "O ELEMENTO PRIMORDIAL." },
+  { text: "E VOCÊ? SE TIVESSE OUTRO NOME, QUAL SERIA?", field: "nomepersonagem" },
+  { text: "ÓTIMO." },
+  { text: "VOCÊ DEVERIA SE PREPARAR." },
+  { text: "AQUILO QUE VOCÊ CONHECIA ANTES..." },
+  { text: "NÃO EXISTE MAIS." },
+  { text: "MAS ALGUMAS COISAS AINDA EXISTEM." },
+  { text: "VOLTE DEPOIS, EU TE EXPLICAREI." },
+  { text: "VOCÊ SABERÁ QUANDO." },
+];
+
+const VELOCIDADE_DIGITACAO = 60;
+const TEMPO_BASE_LEITURA = 1500;
+const TEMPO_POR_CARACTERE = 40;
+const entitySleep = ["https://i.imgur.com/teKx1FN.png"]
+const spritesFala = [
+  "https://i.imgur.com/Ba4PhWE.png",
+  "https://i.imgur.com/WCSq4I4.png",
+  "https://i.imgur.com/9WX3XCb.png"
+];
+const spriteJumpscare = "https://i.imgur.com/264o5Tc.png";
+
+const dialogueBox = document.getElementById("dialogue-box");
+const inputContainer = document.getElementById("input-container");
+const userInput = document.getElementById("user-input");
+const hiddenInputs = document.getElementById("hidden-inputs");
+const form = document.getElementById("formspree-form");
+const startOverlay = document.getElementById("start-overlay");
+const entitySprite = document.getElementById("entity-sprite");
+const jumpscareAudio = document.getElementById("jumpscare-audio");
+const nomesReais = [
+  "alex",
+  "raphaela",
+  "bruno",
+  "ana cecilia",
+  "ana clara",
+  "talita",
+  "felipe",
+  "luiza",
+  "gigi",
+  "giovanna",
+  "ana",
+  "tata",
+  "lulu"
+];
+const falasDeboche = [
+  "NÃO MINTA PARA MIM.",
+  "EU SEI QUE NÃO.",
+  "EU SEI QUE NÃO É SEU NOME.",
+  "DIGA A VERDADE.",
+  "APENAS A VERDADE."
+];
+const nomeAmyh = ["amyh", "leonard"];
+
+let step = 0;
+let isSpeaking = false;
+let animationInterval;
+
+function startEntityAnimation() {
+
+  animationInterval = setInterval(() => {
+    const randomIndex = Math.floor(Math.random() * spritesFala.length);
+    entitySprite.src = spritesFala[randomIndex];
+  }, 75 + Math.random() * 100);
+}
+
+function stopEntityAnimation() {
+  clearInterval(animationInterval);
+  animationInterval = null;
+  entitySprite.src = spritesFala[0];
+  entitySprite.classList.add("swaying");
+}
+
+function typeWriter(text, i = 0) {
+  if (i === 0) {
+    isSpeaking = true;
+    startEntityAnimation();
+    dialogueBox.innerHTML = "";
+  }
+
+  if (i < text.length) {
+    dialogueBox.innerHTML = text.substring(0, i + 1);
+    setTimeout(() => typeWriter(text, i + 1), VELOCIDADE_DIGITACAO);
+  } else {
+    stopEntityAnimation();
+    isSpeaking = false;
+    finishStep(text);
+  }
+}
+
+function finishStep(text) {
+  const current = script[step];
+  const foiDeboche = falasDeboche.includes(text);
+
+  if (current.field || foiDeboche) {
+    inputContainer.classList.remove("hidden");
+    userInput.focus();
+  } else {
+    const tempoDeLeitura =
+      TEMPO_BASE_LEITURA + text.length * TEMPO_POR_CARACTERE;
+    setTimeout(() => {
+      if (!isSpeaking) nextStep();
+    }, tempoDeLeitura);
+  }
+}
+
+function nextStep() {
+  step++;
+  if (step < script.length) {
+    inputContainer.classList.add("hidden");
+    userInput.value = "";
+    dialogueBox.innerHTML = "";
+
+    setTimeout(() => {
+      typeWriter(script[step].text);
+    }, 500);
+  } else {
+    submitForm();
+  }
+}
+
+startOverlay.addEventListener("click", () => {
+  if (isSpeaking) return;
+
+  startOverlay.style.display = "none";
+  jumpscareAudio.play().catch((e) => console.log("Áudio aguardando interação"));
+  
+  entitySprite.src = spriteJumpscare;
+  entitySprite.classList.remove("breathing");
+  entitySprite.classList.add("jumpscare-effects");
+
+  setTimeout(() => {
+    entitySprite.classList.remove("jumpscare-effects");
+    entitySprite.src = spritesFala[0];
+    entitySprite.classList.add("swaying");
+
+    setTimeout(() => {
+      step = 0;
+      typeWriter(script[step].text);
+    }, 1200);
+  }, 500);
+});
+
+userInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" && userInput.value.trim() !== "" && !isSpeaking) {
+    const entradaRaw = userInput.value.trim();
+    const entradaLimpa = entradaRaw
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    const current = script[step];
+    if (nomeAmyh.includes(entradaLimpa)) {
+
+      entitySprite.src = spriteJumpscare;
+      document.body.style.backgroundColor = "red";
+      dialogueBox.innerHTML = "";
+      entitySprite.classList.add("jumpscare-final");
+      entitySprite.classList.remove("breathing", "swaying");
+
+      jumpscareAudio.volume = 1.0;
+      jumpscareAudio.play();
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      return;
+    }
+
+    if (current.field === "nome") {
+      const ehNomeReal = nomesReais.includes(entradaLimpa);
+
+      if (!ehNomeReal) {
+        inputContainer.classList.add("hidden");
+        userInput.value = "";
+
+        const deboche =
+          falasDeboche[Math.floor(Math.random() * falasDeboche.length)];
+
+        jumpscareAudio.volume = 0.2;
+        jumpscareAudio.play();
+
+        typeWriter(deboche);
+        return;
+      }
+    }
+
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = current.field;
+    input.value = entradaRaw;
+    hiddenInputs.appendChild(input);
+
+    jumpscareAudio.volume = 1.0;
+    nextStep();
+  }
+});
+
+function submitForm() {
+  entitySprite.src = entitySleep
+  dialogueBox.innerHTML = "";
+  const data = new FormData(form);
+  fetch(form.action, {
+    method: "POST",
+    body: data,
+    headers: { Accept: "application/json" }
+  });
+}
+</script>
