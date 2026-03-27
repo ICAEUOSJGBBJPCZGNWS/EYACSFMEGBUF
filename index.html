@@ -37,7 +37,7 @@
 body {
   background-color: #000;
   color: #fff;
-  font-family: "Alkhemikal", monospace;
+  font-family: "Jersey 10", monospace;
   letter-spacing: 2px;
   display: flex;
   justify-content: center;
@@ -48,13 +48,16 @@ body {
 }
 
 #game-container {
+  margin-top: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centraliza verticalmente o conjunto todo */
   text-align: center;
   position: relative;
   width: 100%;
   max-width: 800px;
+  height: 100%; /* Ocupa a altura total disponível */
 }
 
 #start-overlay {
@@ -76,18 +79,22 @@ body {
   z-index: 10;
 }
 
+/* CONTAINER DA ENTIDADE - Espaço reservado e fixo */
 #entity-container {
-  margin-bottom: 30px;
-  height: 350px;
-  bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+    position: fixed;
+    min-height: 950px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    z-index: -5;
+    pointer-events: none;
 }
 
 #entity-sprite {
-  max-height: 150%;
+  scale: 2.5;
+  z-index: -1;
+  max-height: 300px;
   transition: transform 0.1s ease-out;
 }
 @keyframes breathing {
@@ -121,7 +128,7 @@ body {
 @keyframes jumpscareZoom {
       0% { transform: translate(3px, 0); }
     10% { transform: translate(-3px, 0); }
-    20% { transform: translate(3px, 0) scale(3) rotate(5deg); }
+    20% { transform: translate(3px, 0); }
     30% { transform: translate(-3px, 0); }
     40% { transform: translate(3px, 0); }
     50% { transform: translate(-3px, 0); }
@@ -129,7 +136,7 @@ body {
     70% { transform: translate(-3px, 0); }
     80% { transform: translate(3px, 0); }
     90% { transform: translate(-3px, 0); }
-    100% { transform: translate(3px, 0) scale(1) rotate(0deg); }
+    100% { transform: translate(3px, 0); }
 }
 .jumpscare-effects {
   animation: jumpscareZoom 0.5s ease-out 1;
@@ -158,18 +165,26 @@ body {
 }
 
 #dialogue-box {
+  min-height: 315px;
   font-size: 2.5rem;
   max-width: 600px;
-  line-height: 1.6;
-  min-height: 100px;
-  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  margin-bottom: 2px;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
   image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hidden {
   display: none;
 }
+
 #user-input {
   font-family: "Jersey 10", monospace;
   letter-spacing: 2px;
@@ -181,6 +196,7 @@ body {
   text-align: center;
   outline: none;
   width: 300px;
+  z-index: -2;
 }
 .instruction {
   font-size: 1rem;
