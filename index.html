@@ -240,7 +240,7 @@ const script = {
     next: (res) => {
       const r = res.toLowerCase().trim();
       if (r === "ana cecilia") return "anaceci1";
-      if (r === "ana clara") return "anacla1";
+      if (r === "douglas") return "douglas1";
       if (r === "bruno") return "bruno1";
       if (r === "alex") return "alex1";
       if (r === "giovanna") return "gigi1";
@@ -275,39 +275,40 @@ const script = {
     next: "FIM"
   },
 
-  // ANA CLARA
+  // DOUGLAS
   
-    anacla1: {
-    text: "Ana Clara. A alma que mais demonstra desinteresse.",
-    next: "anacla2"
+    douglas1: {
+    text: "Douglas! Prazer em te conhecer.",
+    next: "douglas2"
   },
-    anacla2: {
-    text: "Não busca nada, não parece querer nada também.",
-    next: "anacla3"
+    douglas2: {
+    text: "Mais um novo jogador. Vamos do início, então.",
+    next: "douglas3"
   },
-    anacla3: {
-    text: "Você sequer sabe do quê isso se trata?",
-    next: "anacla4"
+    douglas3: {
+    text: "Nada disso é real.",
+    next: "douglas4"
   },
-      anacla4: {
-    text: "Clara foi seu nome de escolha, devo dizer que é menos criativo que o seu anterior. Mas não vou indagar, você nunca teve esse nome antes.",
-    next: "anacla5"
+      douglas4: {
+    text: "Me diga, se você tivesse outro nome, qual gostaria que fosse?",
+    field: "nomepersonagem",
+    next: "douglas5"
   },
-    anacla5: {
-    text: "Se você busca o nada, prepare-se para receber. Ninguém vai retribuir nada para você nesse universo.",
-    next: "anacla6"
+    douglas5: {
+    text: "Perfeito.",
+    next: "douglas6"
   },
-  anacla6: {
-    text: "Bom, o ano é 1920, o que essa tal Clara veste?",
+  douglas6: {
+    text: "Em seguida, o ano é 1920, o que você veste? Pode ser uma longa descrição, pode ser respondido depois.",
     field: "vestimenta",
-    next: "anacla7"
+    next: "douglas7"
   },
-    anacla7: {
+    douglas7: {
     text: "Ótimo.",
-    next: "anacla8"
+    next: "douglas8"
   },
-    anacla8: {
-    text: "Você não parece interessada no que isso se trata. Mas espero te ver na próxima vez.",
+    douglas8: {
+    text: "Por enquanto isso é tudo. Vejo você na confraternização.",
     next: "FIM"
   },
   
