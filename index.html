@@ -242,7 +242,7 @@ const script = {
       if (r === "ana cecilia") return "anaceci1";
       if (r === "douglas") return "douglas1";
       if (r === "bruno") return "bruno1";
-      if (r === "alex") return "alex1";
+      if (r === "joão") return "alex1";
       if (r === "giovanna") return "gigi1";
       if (r === "luiza") return "luiza1";
       if (r === "felipe") return "felipe1";
@@ -364,27 +364,27 @@ const script = {
 
   // ALEX
   alex1: {
-    text: "Ah, Alex! Uma parte de um dos dois vínculos.",
+    text: "Olá, João.",
     next: "alex2"
   },
   alex2: {
-    text: "Procura liberdade como o outro.",
+    text: "É o nosso primeiro encontro.",
     next: "alex3"
   },
   alex3: {
-    text: "E tão preso ao passado quanto o outro...",
+    text: "Mas nos conhecemos há muito mais tempo.",
     next: "alex4"
   },
   alex4: {
-    text: "Arthur... Não, esqueça. Ishikawas não existem mais.",
+    text: "Vou lentamente te guiar.",
     next: "alex5"
   },
  alex5: {
-    text: "Tente novamente. Escolha OUTRO nome?",
+    text: "Se você pudesse ter outro nome, qual seria?",
     field: "nomepersonagem",
     next: (res) => {
         const r = res.toLowerCase().trim();
-    if (r.includes("arthur")) {
+    if (r.includes("takata")) {
         return "alex5";
     }
 
@@ -392,7 +392,7 @@ const script = {
 }
     },
     alex6: {
-    text: "Agora sim.",
+    text: "Perfeito.",
     next: "alex7"
   },
       alex7: {
@@ -405,7 +405,7 @@ const script = {
     next: "alex9"
   },
     alex9: {
-    text: "Você já deve saber sobre o que isso é. Volte depois. Coma bem.FQA",
+    text: "Por enquanto é só. MURD3R",
     next: "FIM"
   },
   // GIGI
