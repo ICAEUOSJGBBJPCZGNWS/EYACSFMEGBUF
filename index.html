@@ -211,7 +211,8 @@ body {
 // ==========================================
 const script = {
   inicio: {
-    text: "Você novamente.",
+    text: "Qual é o seu nome, de novo?",
+    field: "nome",
     next: "inicio2"
   },
     final_vazio: {
@@ -219,12 +220,9 @@ const script = {
     next: "FIM"
   },
   inicio2: {
-    text: "Quer mesmo saber o que é tudo isso?",
-    field: "quersaber",
-    next: (res) => {
-      const r = res.toLowerCase().trim();
-    if (r.includes("sim")) {
-        return "excl";
+    text: "Por que você mataria o prefeito?",
+    field: "matar",
+    next: "FIM"
     }
 
     return "final_vazio"; // fallback garantido
