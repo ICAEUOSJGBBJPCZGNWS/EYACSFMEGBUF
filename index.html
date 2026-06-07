@@ -206,21 +206,388 @@ body {
 }
 </style>
 <script>
-// ==========================================
-// CONFIGURAÇÃO DO SCRIPT RAMIFICADO
-// ==========================================
 const script = {
   inicio: {
-    text: "Qual é o seu nome, de novo?",
-    field: "nome",
+    text: "Você novamente.",
     next: "inicio2"
   },
+    final_vazio: {
+    text: "Bom, você pulou essa etapa então.",
+    next: "FIM"
+  },
   inicio2: {
+    text: "Qual é o seu nome?",
+    field: "nome",
+    next: "inicio3"
+  },
+    inicio3: {
     text: "Por que você mataria o prefeito?",
     field: "matar",
     next: "FIM"
   },
+  excl: {
+    text: "Perfeito.",
+    next: "pergunta_nome"
+  },
+  pergunta_nome: {
+    text: "Qual é o seu nome mesmo?",
+    field: "nome",
+    next: (res) => {
+      const r = res.toLowerCase().trim();
+      if (r === "ana cecilia") return "anaceci1";
+      if (r === "douglas") return "douglas1";
+      if (r === "bruno") return "bruno1";
+      if (r === "alex") return "alex1";
+      if (r === "giovanna") return "gigi1";
+      if (r === "luiza") return "luiza1";
+      if (r === "felipe") return "felipe1";
+      if (r === "talita") return "tata1";
+      if (r === "amyh") return "amyh1";
+    }
+  },
+
+  // ANA CECILIA
+  anaceci1: {
+    text: "Ah, Ana Cecilia! A única alma que ousou um nome diferente.",
+    next: "anaceci2"
+  },
+  anaceci2: {
+    text:
+      "Bem vinda de volta, primeiramente.",
+    next: "anaceci3"
+  },
+  anaceci3: {
+    text: "Sinto muito pela Lia, o que aconteceu com ela é... Fora deste universo.",
+    next: "anaceci4"
+  },
+  anaceci4: {
+    text: "Mas enquanto viva, o que ela vestiria? Pode ser uma descrição longa.",
+    field: "vestimenta",
+    next: "anaceci5"
+  },
+  anaceci5: {
+    text: "Interessante. Espero ver você na confraternização.",
+    next: "FIM"
+  },
+
+  // DOUGLAS
+  
+    douglas1: {
+    text: "Douglas! Prazer em te conhecer.",
+    next: "douglas2"
+  },
+    douglas2: {
+    text: "Mais um novo jogador. Vamos do início, então.",
+    next: "douglas3"
+  },
+    douglas3: {
+    text: "Nada disso é real.",
+    next: "douglas4"
+  },
+      douglas4: {
+    text: "Me diga, se você tivesse outro nome, qual gostaria que fosse?",
+    field: "nomepersonagem",
+    next: "douglas5"
+  },
+    douglas5: {
+    text: "Perfeito.",
+    next: "douglas6"
+  },
+  douglas6: {
+    text: "Em seguida, o ano é 1920, o que você veste? Pode ser uma longa descrição.",
+    field: "vestimenta",
+    next: "douglas7"
+  },
+    douglas7: {
+    text: "Ótimo.",
+    next: "douglas8"
+  },
+    douglas8: {
+    text: "Por enquanto isso é tudo. Vejo você na confraternização.",
+    next: "FIM"
+  },
+  
+  // BRUNO
+  bruno1: {
+    text: "Bruno! Ainda preso ao passado, presumo.",
+    next: "bruno2"
+  },
+  bruno2: {
+    text: "Veneros, você diz?",
+    next: "bruno3"
+  },
+  bruno3: {
+    text: "E busca... Vingança.",
+    next: "bruno4"
+  },
+  bruno4: {
+    text: "O resultado seria... ²Traição₄₀₀₂₆₀₂",
+    next: "bruno5"
+  },
+  bruno5: {
+    text: "Você não pode ser quem não existe mais.",
+    next: "bruno6"
+  },
+  bruno6: {
+    text:
+      "Não, não... Você é qualquer coisa: Marcos, Rafael, Gilberto. Menos Veneros... Ou Kenji.",
+    field:"nomepersonagem",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("veneros")) {
+        return "bruno6";
+    }
+
+    return "bruno7"; // fallback garantido
 }
+  },
+  bruno7: {
+    text:
+      "Finalmente. O ano é 1920. O que você veste? Pode ser longo, mas tenha noção, Bruno.",
+    field: "vestimenta",
+    next: "bruno8"
+  },
+  bruno8: {
+    text: "Ah... Curioso. Guarde essa informação.",
+    next: "bruno9"
+  },
+  bruno9: {
+    text: "Acredito que você já tenha entendido sobre o que isso se trata. Não se prenda ao passado",
+    next: "FIM"
+  },
+
+  // ALEX
+  alex1: {
+    text: "Ah, Alex! Uma parte de um dos dois vínculos.",
+    next: "alex2"
+  },
+  alex2: {
+    text: "Procura liberdade como o outro.",
+    next: "alex3"
+  },
+  alex3: {
+    text: "E tão preso ao passado quanto o outro...",
+    next: "alex4"
+  },
+  alex4: {
+    text: "Arthur... Não, esqueça. Ishikawas não existem mais.",
+    next: "alex5"
+  },
+ alex5: {
+    text: "Tente novamente. Escolha OUTRO nome?",
+    field: "nomepersonagem",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("arthur")) {
+        return "alex5";
+    }
+
+    return "alex6"; // fallback garantido
+}
+    },
+    alex6: {
+    text: "Agora sim.",
+    next: "alex7"
+  },
+      alex7: {
+    text: "Agora, o ano é 1920, o que veste? Pode ser longo.",
+    field: "vestimenta",
+    next: "alex8"
+  },
+     alex8: {
+    text: "Interessante. Guarde essa informação",
+    next: "alex9"
+  },
+    alex9: {
+    text: "Você já deve saber sobre o que isso é. Volte depois. Coma bem.FQA",
+    next: "FIM"
+  },
+  // GIGI
+  gigi1: {
+    text: "Giovanna! Outra parte de um vínculo.",
+    next: "gigi2"
+  },
+   gigi2: {
+    text: "Vocês dois buscam respostas.",
+    next: "gigi3"
+  },
+   gigi3: {
+    text: "Vocês receberão, claro.",
+    next: "gigi4"
+  },
+   gigi4: {
+    text: "Mas esqueça Ellio. Ele não existe ainda.",
+    next: "gigi5"
+  },
+   gigi5: {
+    text: "Escolha OUTRO nome.",
+    field: "nomepersonagem",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("ellio")) {
+        return "gigi5";
+    }
+
+    return "gigi6"; // fallback garantido
+}
+  },
+     gigi6: {
+    text: "Agora sim. Diga: O ano é 1920, o que veste? Pode ser longo.",
+    field: "vestimenta",
+    next: "gigi7"
+  },
+  gigi7: {
+    text: "Perfeito. Espero que entenda agora.UYT",
+    next: "FIM"
+  },
+  
+  // LUIZA
+    luiza1: {
+    text: "Ah, Luiza! Uma parte de um dos dois vínculos.",
+    next: "luiza2"
+  },
+      luiza2: {
+    text: "Mas presa ao passado. Vinculada com seu inexistente irmão, Akemi.",
+    next: "luiza3"
+  },
+      luiza3: {
+    text: "Vocês dois procuram liberdade. Mas isso é a chave.",
+    next: "luiza4"
+  },
+      luiza4: {
+   text: "Você não pode ser quem não existe mais. Escolha OUTRO nome.",
+    field: "nomepersonagem",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("akemi")) {
+        return "luiza4";
+    }
+
+    return "luiza5"; // fallback garantido
+}
+  },
+  luiza5: { 
+  text: "Finalmente. Bom: O ano é 1920, o que veste? Pode ser longo.",
+    field: "vestimenta",
+    next: "luiza6"
+  },
+       luiza6: {
+    text: "Perfeito. Espero você na próxima confraternização.NISQ",
+    next: "FIM"
+  },
+  // FELIPE
+       felipe1: {
+    text: "Felipe. Bem vindo de volta.",
+    next: "felipe2"
+  },
+     felipe2: {
+    text: "Devo admitir, escolher aquele nome depois de tudo é... Interessante.",
+    next: "felipe3"
+  },
+     felipe3: {
+    text: "Mas ela não existe.",
+    next: "felipe4"
+  },
+     felipe4: {
+    text: "Escolha OUTRO nome.",
+       field: "nomepersonagem",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("cátia")) {
+        return "felipe4";
+    }
+
+    return "felipe5"; // fallback garantido
+}
+  },
+    felipe5: { 
+  text: "Perfeito. Diga: O ano é 1920, o que veste? Pode ser longo.",
+    field: "vestimenta",
+    next: "felipe6"
+  },
+       felipe6: {
+    text: "Perfeito. Volte novamente mais tarde. Bom serviço, soldado.",
+    next: "FIM"
+  },
+  // TATA
+    tata1: {
+    text: "Talita! Outra parte de um vínculo.",
+    next: "tata2"
+  },
+      tata2: {
+    text: "Curiosamente vinculada com alguém que pouco engaja em conversas.",
+    next: "tata3"
+  },
+      tata3: {
+    text: "Você dois buscam respostas. Encontrarão, eu darei a chave em breve.",
+    next: "tata4"
+  },
+      tata4: {
+    text: "Mas devemos citar o que não pode ser ignorado: Polimnia não existe ainda.",
+    next: "tata5"
+  },
+      tata5: {
+    text: "Dito isso: Escolha OUTRO nome.",
+       field: "nomepersonagem",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("polimnia")) {
+        return "tata5";
+    }
+
+    return "tata6"; // fallback garantido
+}
+  },
+    tata6: {
+    text: "Ótimo. O ano é 1920, o que você veste? Pode ser longo.",
+      field: "vestimenta",
+    next: "tata7"
+  },
+       tata7: {
+    text: "Perfeito. Siga em fremte por enquanto. Te vejo novamente na próxima confraternização.YC",
+    next: "FIM"
+  },
+  // LEONADR
+    amyh1: {
+    text: "Ah! Leonard!",
+    next: "amyh2"
+  },
+      amyh2: {
+    text: "Você participará da confraternização na mansão do prefeito?",
+    next: "amyh3"
+  },
+      amyh3: {
+    text: "Interessante. Você raramente aparece diretamente.",
+    next: "amyh4"
+  },
+      amyh4: {
+    text: "O anacronismo de sua forma é admirável.",
+    next: "amyh5"
+  },
+      amyh5: {
+    text: "A única pessoa que percebe que eu não existo.",
+    next: "amyh6"
+  },
+      amyh6: {
+    text: " ",
+    field: "enigma1",
+    next: (res) => {
+        const r = res.toLowerCase().trim();
+    if (r.includes("lucio")) {
+        return "amyh7";
+    }
+
+    return "amyh6"; // fallback garantido
+}
+  },
+        amyh7: {
+    text: "Ah, sim. A confraternização do prefeito Lucio Bragança. Você tem bons planos, sim.",
+    next: "amyh8"
+  },
+    amyh8: {
+    text: "Pela primeira vez entrando em algo do qual não sabe do que se trata. Boa sorte.",
+    next: "FIM"
+  },
 };
 
 // ==========================================
@@ -424,5 +791,4 @@ function submitForm() {
     headers: { Accept: "application/json" }
   });
 }
-
 </script>
