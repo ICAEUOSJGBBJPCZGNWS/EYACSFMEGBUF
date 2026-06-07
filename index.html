@@ -724,6 +724,7 @@ function advance(answer = "") {
 
   if (nextID === "FIM") {
     submitForm();
+  setTimeout(() => {
     window.location.reload();
   }, 500);
     return;
